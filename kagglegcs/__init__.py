@@ -1,7 +1,7 @@
 import csv
 import os
 D = {}
-workdir = './kagglegcs/'
+workdir = 'kagglegcs/'
 filename = os.listdir( workdir )[0]
 with open(workdir + filename, mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
