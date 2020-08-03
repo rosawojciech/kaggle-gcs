@@ -9,4 +9,4 @@ setup(name='kagglegcs',
       license='Apache 2.0',
       packages=['kagglegcs'],
       zip_safe=False,
-      package_data={'kagglegcs': ['kagglegcs/*.csv']},)
+      package_data={'kagglegcs': ['data/*.csv']})
