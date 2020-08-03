@@ -1,9 +1,11 @@
 import csv
 import os
+import pkgutil
+import sys
+d = os.path.dirname(sys.modules['kagglegcs'].__file__)
 D = {}
-workdir = './kagglegcs/'
-filename = os.listdir( workdir )[0]
-with open(workdir + filename, mode='r') as csv_file:
+
+with open(os.path.join(d, 'kaggle_gcs_paths_0_0_1.csv'), 'r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for row in csv_reader:
         D[row["kaggle_dataset"]] = row['gcs_path'] 
