@@ -8,5 +8,4 @@ setup(name='kagglegcs',
       author_email='roswoj@gmail.com',
       license='Apache 2.0',
       packages=['kagglegcs'],
-      zip_safe=False,
-      include_package_data=True)
+      zip_safe=False)
