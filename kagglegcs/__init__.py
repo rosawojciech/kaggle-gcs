@@ -18,3 +18,8 @@ def get_gcs_path(name):
         print('Warning: no gcs_path found')
         result = ''
     return result
+
+def gcs_info():
+    print('Current version: '+__version__)
+    print('Last update: 2020-08-04')
+    print('Number of datasets: '+str(len([d for d in D])))
