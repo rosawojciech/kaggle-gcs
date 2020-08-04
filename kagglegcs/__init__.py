@@ -20,6 +20,10 @@ def get_gcs_path(name):
     return result
 
 def gcs_info():
-    print('Current version: '+__version__)
-    print('Last update: 2020-08-04')
-    print('Number of datasets: '+str(len([d for d in D])))
+    print('Current kagglegcs version: '+__version__)
+    print('Last datasets update: 2020-08-04')
+    print('Number of available datasets: '+str(len([d for d in D])))
+
+def gcs_available(pattern = None):
+    if pattern == None:
+        return [d for d in D]
