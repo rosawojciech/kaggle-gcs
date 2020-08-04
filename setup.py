@@ -1,8 +1,8 @@
 from setuptools import setup
-
+from kagglegcs import __version__
 setup(name='kagglegcs',
-      version='0.0.2',
-      description='Unofficial kaggle support for get_gcs_paths()',
+      version=__version__,
+      description='Unofficial Kaggle support for get_gcs_paths()',
       url='http://github.com/rosawojciech/kaggle-gcs',
       author='Wojciech Rosa',
       author_email='roswoj@gmail.com',
