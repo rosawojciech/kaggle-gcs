@@ -1,4 +1,4 @@
-last_update = '2020-08-05'
+last_update = '2020-08-06'
 import csv
 import os
 import pkgutil
