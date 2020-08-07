@@ -47,7 +47,7 @@ def gcs_available(pattern = None):
         return list(filter(r.match, Dl ))
 
 class kaggle_gcs_client:
-    def __init__(self, command = 'kaggle', username = None, key = None, mode = 'auto'):
+    def __init__(self, command = 'kaggle', username = None, key = None):
         self.command = command
         # user name
         if username is None:
@@ -68,6 +68,12 @@ class kaggle_gcs_client:
                 json.dump(data, outfile)
             process = Popen(["chmod","600","/root/.kaggle/kaggle.json"], stdout=PIPE, stderr=PIPE)
             stdout, stderr = process.communicate()
+        try: # colab mode
+            import google.colab
+            process = Popen(["sed","-i","1s/2/3/", "/usr/local/bin/kaggle"], stdout=PIPE, stderr=PIPE)
+            stdout, stderr = process.communicate()
+        except:
+            pass
         # user dictionary
         self.D = {}
         # one string passed
