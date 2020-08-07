@@ -6,6 +6,7 @@ import sys
 import re
 import tempfile
 import time
+import json
 from subprocess import Popen, PIPE
 
 
@@ -13,9 +14,10 @@ d = os.path.join(os.path.dirname(sys.modules['kagglegcs'].__file__),'data')
 D = {}
 filename = os.listdir( d )[0]
 # obtaining version
-p = re.compile('[a-z_]+([0-9])_([0-9])_([0-9])')
-matchObj = p.match(filename)
-__version__ = matchObj.group(1) + '.' + matchObj.group(2)+'.' +  matchObj.group(3)
+__version__ = '0.0.6'
+#p = re.compile('[a-z_]+([0-9])_([0-9])_([0-9])')
+#matchObj = p.match(filename)
+#__version__ = matchObj.group(1) + '.' + matchObj.group(2)+'.' +  matchObj.group(3)
 
 with open(os.path.join(d,filename), 'r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
@@ -45,14 +47,27 @@ def gcs_available(pattern = None):
         return list(filter(r.match, Dl ))
 
 class kaggle_gcs_client:
-    def __init__(self, command = 'kaggle'):
+    def __init__(self, command = 'kaggle', username = None, key = None, mode = 'auto'):
         self.command = command
         # user name
-        process = Popen([self.command,"config","view"], stdout=PIPE, stderr=PIPE)
-        stdout, stderr = process.communicate()
-        p = re.compile("username: ([a-z0-9]+)")
-        matchObj = p.search(stdout.decode('ascii'))
-        self.username = matchObj.group(1)
+        if username is None:
+            process = Popen([self.command,"config","view"], stdout=PIPE, stderr=PIPE)
+            stdout, stderr = process.communicate()
+            p = re.compile("username: ([a-z0-9]+)")
+            matchObj = p.search(stdout.decode('ascii'))
+            self.username = matchObj.group(1)
+        if username is not None:
+            self.username = username
+        if key is not None:
+            self.key = key
+            data = {}
+            data['username'] = self.username
+            data['key'] = self.key
+            os.makedirs("/root/.kaggle/", exist_ok=True)
+            with open('/root/.kaggle/kaggle.json', 'w') as outfile:
+                json.dump(data, outfile)
+            process = Popen(["chmod","600","/root/.kaggle/kaggle.json"], stdout=PIPE, stderr=PIPE)
+            stdout, stderr = process.communicate()
         # user dictionary
         self.D = {}
         # one string passed
