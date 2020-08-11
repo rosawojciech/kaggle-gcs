@@ -28,7 +28,7 @@ with open(os.path.join(d,filename), 'r') as csv_file:
 Dl = [d for d in D]
 
 def get_gcs_path(name):
-    warnings.warn("deprecated", DeprecationWarning)
+    warnings.warn("get_gcs_path() is obsolete. Please obtain Kaggle API key and use kaggle_gcs_client")
     try:
         result = D[name]
     except KeyError: 
@@ -42,7 +42,7 @@ def gcs_info():
     #print('Number of available datasets: '+str(len(Dl)))
 
 def gcs_available(pattern = None):
-    warnings.warn("deprecated", DeprecationWarning)
+    warnings.warn("gcs_available() is obsolete. Please obtain Kaggle API key and use kaggle_gcs_client")
     if pattern == None:
         return Dl 
     else:
