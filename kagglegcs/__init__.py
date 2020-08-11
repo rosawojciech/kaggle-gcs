@@ -139,7 +139,7 @@ def create_kernel(x):
     cm = "import pandas as pd, numpy as np\n"
     cm += "from kaggle_datasets import KaggleDatasets\n"
     cm +="from datetime import datetime\n"
-    cm += "now = datetime.now()\n"
+    cm += "now = datetime.now().strftime('%d_%m_%Y_%H_%M_%S')\n"
     cm += "kaggle_dataset_names = ['"+ "','".join(x)+"']\n"
     cm += "kaggle_datasets =  [ft.split('/')[1] for ft in kaggle_dataset_names]\n"
     cm += "gcs_paths = []\n"
@@ -148,7 +148,7 @@ def create_kernel(x):
     cm += "\t\tgcs_paths.append(KaggleDatasets().get_gcs_path(fi))\n"
     cm += "\texcept:\n"
     cm += "\t\tgcs_paths.append('httpError')\n"
-    cm += "result = pd.DataFrame({'kaggle_dataset_names': kaggle_dataset_names, 'gcs_path': gcs_paths})\n"
+    cm += "result = pd.DataFrame({'kaggle_dataset_names': kaggle_dataset_names, 'gcs_path': gcs_paths,'datetime': now})\n"
     #cm += "result.to_csv('cache_kaggle_gcs_paths_'+now.strftime('%d_%m_%Y_%H_%M_%S')+'.csv', index = False)"
     cm += "result.to_csv('cache_kaggle_gcs_paths.csv', index = False)"
     return cm
