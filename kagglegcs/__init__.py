@@ -7,6 +7,7 @@ import re
 import tempfile
 import time
 import json
+import warnings
 from subprocess import Popen, PIPE
 
 
@@ -14,7 +15,7 @@ d = os.path.join(os.path.dirname(sys.modules['kagglegcs'].__file__),'data')
 D = {}
 filename = os.listdir( d )[0]
 # obtaining version
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 #p = re.compile('[a-z_]+([0-9])_([0-9])_([0-9])')
 #matchObj = p.match(filename)
 #__version__ = matchObj.group(1) + '.' + matchObj.group(2)+'.' +  matchObj.group(3)
@@ -27,6 +28,7 @@ with open(os.path.join(d,filename), 'r') as csv_file:
 Dl = [d for d in D]
 
 def get_gcs_path(name):
+    warnings.warn("deprecated", DeprecationWarning)
     try:
         result = D[name]
     except KeyError: 
@@ -36,10 +38,11 @@ def get_gcs_path(name):
 
 def gcs_info():
     print('Current kagglegcs version: '+__version__)
-    print('Last datasets update: '+ last_update)
-    print('Number of available datasets: '+str(len(Dl)))
+    #print('Last datasets update: '+ last_update)
+    #print('Number of available datasets: '+str(len(Dl)))
 
 def gcs_available(pattern = None):
+    warnings.warn("deprecated", DeprecationWarning)
     if pattern == None:
         return Dl 
     else:
